@@ -32,6 +32,7 @@ function comprarMejora(nombre){
         juego.puntosTot -= mejora.costo;
         juego.puntosPorSeg += mejora.clicks;
         mejora.cant++;
+        mejora.clicks += Math.floor(mejora.cant / 10);
         mejora.costo = Math.floor(mejora.costo * 1.25);
         if (mejora.cant >= mejora.piso){
             mejora.lvl++;
