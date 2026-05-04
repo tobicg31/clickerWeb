@@ -3,14 +3,16 @@ const juegoInicial = {
     puntosPorClick: 1,
     puntosPorSeg: 0,
     mejoras: {
-        Fuego: {costo: 10, clicks: 0.5, lvl: 1, piso:10, cant: 0},
-        Bestia: {costo: 100, clicks: 2, lvl: 1, piso:10, cant: 0}
+        Fuego: {costo: 10, ppS: 0.5, lvl: 1, piso:10, cant: 0, esSeg:1},
+        Bestia: {costo: 100, ppS: 2, lvl: 1, piso:10, cant: 0, esSeg:1},
+        MateriaGris: {costo: 10, clicks: 1, lvl:1, piso:10, cant: 0, esSeg:0}
     }
 };
 
 let juego = structuredClone(juegoInicial);
 
 const puntos = document.getElementById("puntos");
+const ppC = document.getElementById("ppC")
 const btn = document.getElementById("boton");
 renderUpgrades();
 render();
@@ -30,12 +32,22 @@ function comprarMejora(nombre){
 
     if (juego.puntosTot >= mejora.costo){
         juego.puntosTot -= mejora.costo;
-        juego.puntosPorSeg += mejora.clicks;
+
+        if (mejora.esSeg){
+          juego.puntosPorSeg += mejora.ppS;
+        }else{
+          juego.puntosPorClick += mejora.clicks;
+        }
+
         mejora.cant++;
         mejora.costo = Math.floor(mejora.costo * 1.25);
         if (mejora.cant >= mejora.piso){
             mejora.lvl++;
-            mejora.clicks *= 2;
+            if (mejora.esSeg){
+              mejora.ppS *= 2;
+            }else{
+              mejora.clicks *= 2;
+            }
             mejora.piso *= 2;
         }
         renderUpgrades();
@@ -52,13 +64,23 @@ function renderUpgrades() {
 
     //const btn = document.createElement("button");
     //btn.textContent = `${key} (Nivel ${u.lvl}) Costo: ${u.costo} Cantidad: ${u.cant} Punto por mejora: ${u.clicks}`;
+    if (u.esSeg){
     container.insertAdjacentHTML('beforeend',`
+        <div class="mejora" data-key="${key}">
+            <h4>${key}</h4>
+            <p>(Nivel ${u.lvl})</p>
+            <p>Costo: ${u.costo} Cantidad: ${u.cant} Punto por mejora: ${u.ppS}</p>
+        </div>
+    `);
+    }else{
+      container.insertAdjacentHTML('beforeend',`
         <div class="mejora" data-key="${key}">
             <h4>${key}</h4>
             <p>(Nivel ${u.lvl})</p>
             <p>Costo: ${u.costo} Cantidad: ${u.cant} Punto por mejora: ${u.clicks}</p>
         </div>
-    `);
+    `)
+      }
   }
 }
 document.getElementById("mejoras").addEventListener("click", (e) => {
@@ -71,6 +93,7 @@ document.getElementById("mejoras").addEventListener("click", (e) => {
 
 function render(){
     puntos.textContent = `${juego.puntosTot} puntos ${juego.puntosPorSeg} puntos por segundo`;
+    ppC.textContent = `${juego.puntosPorClick} puntos p click`;
 }
 
 function resetGame() {
