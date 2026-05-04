@@ -43,13 +43,13 @@ function comprarMejora(nombre){
         mejora.clicks += Math.floor(mejora.cant / 10);
         mejora.costo = Math.floor(mejora.costo * 1.25);
         if (mejora.cant >= mejora.piso){
-            mejora.lvl++;
-            if (mejora.esSeg){
-              mejora.ppS *= 2;
-            }else{
-              mejora.clicks *= 2;
-            }
-            mejora.piso *= 2;
+          mejora.lvl++;
+          if (mejora.esSeg){
+            mejora.ppS *= 2;
+          }else{
+            mejora.clicks *= 2;
+          }
+          mejora.piso += 10;
         }
         renderUpgrades();
         render();
