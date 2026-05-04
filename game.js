@@ -40,6 +40,7 @@ function comprarMejora(nombre){
         }
 
         mejora.cant++;
+        mejora.clicks += Math.floor(mejora.cant / 10);
         mejora.costo = Math.floor(mejora.costo * 1.25);
         if (mejora.cant >= mejora.piso){
             mejora.lvl++;
