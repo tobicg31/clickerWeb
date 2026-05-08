@@ -1,6 +1,6 @@
 const juegoInicial = {
     puntosTot: 0,
-    puntosPorClick: 1,
+    puntosPorClick: 100,
     puntosPorSeg: 0,
     /*
     mejoras: {
@@ -9,26 +9,27 @@ const juegoInicial = {
         MateriaGris: {costo: 10, clicks: 1, lvl:1, piso:10, cant: 0, esSeg:0}
     }*/
     mejoras: {
-      Fuego: {costo: 15, ppS: 0.2, lvl:1, piso:10, cant:0, esSeg:1},
-      Bestia: {costo: 60, ppS: 0.5, lvl:1, piso:10, cant:0, esSeg:1},
-      MateriaGris: {costo: 250, ppS: 1, lvl:1, piso:10, cant:0, esSeg:1},
-      Ripjaws: {costo: 900, ppS: 3, lvl:1, piso:10, cant:0, esSeg:1},
-      CuatroBrazos: {costo: 3500, ppS: 8, lvl:1, piso:10, cant:0, esSeg:1},
-      UltraT: {costo: 12000, ppS: 20, lvl:1, piso:10, cant:0, esSeg:1},
-      Insectoide: {costo: 45000, ppS: 60, lvl:1, piso:10, cant:0, esSeg:1},
-      Diamante: {costo: 160000, ppS: 150, lvl:1, piso:10, cant:0, esSeg:1},
-      Fantasmatico: {costo: 600000, ppS: 400, lvl:1, piso:10, cant:0, esSeg:1},
-      XLR8: {costo: 2000000, ppS: 1200, lvl:1, piso:10, cant:0, esSeg:1},
+      Fuego: {costo: 15, ppS: 20, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      Bestia: {costo: 60, ppS: 50, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      MateriaGris: {costo: 250, ppS: 100, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      Ripjaws: {costo: 900, ppS: 300, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      CuatroBrazos: {costo: 3500, ppS: 800, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      UltraT: {costo: 12000, ppS: 2000, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      Insectoide: {costo: 45000, ppS: 6000, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      Diamante: {costo: 160000, ppS: 15000, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      Fantasmatico: {costo: 600000, ppS: 40000, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
+      XLR8: {costo: 2000000, ppS: 120000, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
 
-      BrazoTetramand: {costo: 20, clicks: 1, lvl:1, piso:10, cant:0, esSeg:0},
-      VistaGalvan: {costo: 120, clicks: 3, lvl:1, piso:10, cant:0, esSeg:0},
-      ExotrajeVulpimancer: {costo: 700, clicks: 8, lvl:1, piso:10, cant:0, esSeg:0},
-      NucleoCinetico: {costo: 4000, clicks: 20, lvl:1, piso:10, cant:0, esSeg:0},
-      OverdriveOmnitrix: {costo: 25000, clicks: 60, lvl:1, piso:10, cant:0, esSeg:0}
+      BrazoTetramand: {costo: 20, clicks: 100, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
+      VistaGalvan: {costo: 120, clicks: 300, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
+      ExotrajeVulpimancer: {costo: 700, clicks: 800, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
+      NucleoCinetico: {costo: 4000, clicks: 2000, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
+      OverdriveOmnitrix: {costo: 25000, clicks: 6000, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false}
     }
 };
 
 let juego = structuredClone(juegoInicial);
+const ESCALA = 100;
 
 const puntos = document.getElementById("puntos");
 const ppC = document.getElementById("ppC")
@@ -44,13 +45,14 @@ btn.addEventListener("click", ()=>{
 setInterval(() => {
     juego.puntosTot += juego.puntosPorSeg;
     render();
+    renderUpgrades();
 },1000);
 
 function comprarMejora(nombre){
     const mejora = juego.mejoras[nombre];
 
-    if (juego.puntosTot >= mejora.costo){
-        juego.puntosTot -= mejora.costo;
+    if (juego.puntosTot >= mejora.costo * ESCALA){
+        juego.puntosTot -= mejora.costo * ESCALA;
 
         if (mejora.esSeg){
           juego.puntosPorSeg += mejora.ppS;
@@ -82,27 +84,37 @@ function renderUpgrades() {
   for (let key in juego.mejoras) {
     const u = juego.mejoras[key];
 
-    //const btn = document.createElement("button");
-    //btn.textContent = `${key} (Nivel ${u.lvl}) Costo: ${u.costo} Cantidad: ${u.cant} Punto por mejora: ${u.clicks}`;
-    if (u.esSeg){
-    container.insertAdjacentHTML('beforeend',`
-        <div class="mejora" data-key="${key}">
-            <h4>${key}</h4>
-            <p>(Nivel ${u.lvl})</p>
-            <p>Costo: ${u.costo} Cantidad: ${u.cant} Punto por mejora: ${u.ppS}</p>
-        </div>
-    `);
-    }else{
-      container.insertAdjacentHTML('beforeend',`
-        <div class="mejora" data-key="${key}">
-            <h4>${key}</h4>
-            <p>(Nivel ${u.lvl})</p>
-            <p>Costo: ${u.costo} Cantidad: ${u.cant} Punto por mejora: ${u.clicks}</p>
-        </div>
-    `)
+    // Descubrir para siempre
+    if (!u.descubierta && juego.puntosTot * 10 >= u.costo * 7 * ESCALA) {
+      u.descubierta = true;
+    }
+
+    let clase = "mejora bloqueada";
+
+    if (u.descubierta) {
+      if (juego.puntosTot >= u.costo * ESCALA) {
+        clase = "mejora alcanza";
+      } else {
+        clase = "mejora no-alcanza";
       }
+    }
+
+    let textoPoder = u.esSeg
+      ? `Punto por mejora: ${(u.ppS/ESCALA).toFixed(1)} PPS`
+      : `Punto por mejora: ${u.clicks} Click`;
+
+    container.insertAdjacentHTML('beforeend',`
+      <div class="${clase}" data-key="${key}">
+          <h4>${key}</h4>
+          <p>(Nivel ${u.lvl})</p>
+          <p>Costo: ${u.costo}</p>
+          <p>${textoPoder}</p>
+          <p>Cantidad: ${u.cant}</p>
+      </div>
+    `);
   }
 }
+
 document.getElementById("mejoras").addEventListener("click", (e) => {
   const mejoraDiv = e.target.closest(".mejora");
   if (!mejoraDiv) return;
@@ -112,8 +124,8 @@ document.getElementById("mejoras").addEventListener("click", (e) => {
 });
 
 function render(){
-    puntos.textContent = `${juego.puntosTot} puntos ${juego.puntosPorSeg} puntos por segundo`;
-    ppC.textContent = `${juego.puntosPorClick} puntos p click`;
+    puntos.textContent =  `${(juego.puntosTot/ESCALA).toFixed(1)} puntos ${(juego.puntosPorSeg/ESCALA).toFixed(1)} puntos por segundo`;
+    ppC.textContent = `${juego.puntosPorClick/ESCALA.toFixed(1)} puntos p click`;
 }
 
 function resetGame() {

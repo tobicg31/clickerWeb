@@ -123,6 +123,42 @@ body{
     font-size:14px;
 }
 
+/* Mejoras ocultas */
+.mejora.bloqueada{
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition: all .4s ease;
+}
+
+/* Cuando se desbloquea aparece con animación */
+.mejora{
+    transition: all .4s ease;
+}
+
+.mejora.bloqueada{
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.mejora.no-alcanza{
+    opacity: 0.35;
+    filter: grayscale(1);
+    pointer-events: none;
+}
+
+.mejora.alcanza{
+    opacity: 1;
+    cursor: pointer;
+}
+
 /* ====== FOOTER ====== */
 footer{
     position:fixed;
