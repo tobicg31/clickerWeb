@@ -2,10 +2,29 @@ const juegoInicial = {
     puntosTot: 0,
     puntosPorClick: 1,
     puntosPorSeg: 0,
+    /*
     mejoras: {
         Fuego: {costo: 10, ppS: 0.5, lvl: 1, piso:10, cant: 0, esSeg:1},
         Bestia: {costo: 100, ppS: 2, lvl: 1, piso:10, cant: 0, esSeg:1},
         MateriaGris: {costo: 10, clicks: 1, lvl:1, piso:10, cant: 0, esSeg:0}
+    }*/
+    mejoras: {
+      Fuego: {costo: 15, ppS: 0.2, lvl:1, piso:10, cant:0, esSeg:1},
+      Bestia: {costo: 60, ppS: 0.5, lvl:1, piso:10, cant:0, esSeg:1},
+      MateriaGris: {costo: 250, ppS: 1, lvl:1, piso:10, cant:0, esSeg:1},
+      Ripjaws: {costo: 900, ppS: 3, lvl:1, piso:10, cant:0, esSeg:1},
+      CuatroBrazos: {costo: 3500, ppS: 8, lvl:1, piso:10, cant:0, esSeg:1},
+      UltraT: {costo: 12000, ppS: 20, lvl:1, piso:10, cant:0, esSeg:1},
+      Insectoide: {costo: 45000, ppS: 60, lvl:1, piso:10, cant:0, esSeg:1},
+      Diamante: {costo: 160000, ppS: 150, lvl:1, piso:10, cant:0, esSeg:1},
+      Fantasmatico: {costo: 600000, ppS: 400, lvl:1, piso:10, cant:0, esSeg:1},
+      XLR8: {costo: 2000000, ppS: 1200, lvl:1, piso:10, cant:0, esSeg:1},
+
+      BrazoTetramand: {costo: 20, clicks: 1, lvl:1, piso:10, cant:0, esSeg:0},
+      VistaGalvan: {costo: 120, clicks: 3, lvl:1, piso:10, cant:0, esSeg:0},
+      ExotrajeVulpimancer: {costo: 700, clicks: 8, lvl:1, piso:10, cant:0, esSeg:0},
+      NucleoCinetico: {costo: 4000, clicks: 20, lvl:1, piso:10, cant:0, esSeg:0},
+      OverdriveOmnitrix: {costo: 25000, clicks: 60, lvl:1, piso:10, cant:0, esSeg:0}
     }
 };
 
