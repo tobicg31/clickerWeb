@@ -20,11 +20,10 @@ const juegoInicial = {
       Fantasmatico: {costo: 600000, ppS: 40000, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
       XLR8: {costo: 2000000, ppS: 120000, lvl:1, piso:10, cant:0, esSeg:1, descubierta:false},
 
-      BrazoTetramand: {costo: 20, clicks: 100, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
-      VistaGalvan: {costo: 120, clicks: 300, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
-      ExotrajeVulpimancer: {costo: 700, clicks: 800, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
-      NucleoCinetico: {costo: 4000, clicks: 2000, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
-      OverdriveOmnitrix: {costo: 25000, clicks: 6000, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false}
+      PrototipoImperfecto: {costo: 20, clicks: 100, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
+      PrototipoRecalibrado: {costo: 120, clicks: 300, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
+      Ultimatrix: {costo: 700, clicks: 800, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false},
+      OmnitrixDefinitivo: {costo: 4000, clicks: 2000, lvl:1, piso:10, cant:0, esSeg:0, descubierta:false}
     }
 };
 
