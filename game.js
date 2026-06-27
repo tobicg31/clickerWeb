@@ -33,9 +33,6 @@ const ESCALA = 100;
 const puntos = document.getElementById("puntos");
 const ppC = document.getElementById("ppC")
 const btn = document.getElementById("boton");
-renderUpgrades();
-render();
-
 btn.addEventListener("click", ()=>{
     juego.puntosTot += juego.puntosPorClick;
     render();
@@ -60,7 +57,9 @@ function comprarMejora(nombre){
         }
 
         mejora.cant++;
-        mejora.clicks += Math.floor(mejora.cant / 10);
+        if (!mejora.esSeg) {
+          mejora.clicks += Math.floor(mejora.cant / 10);
+        }
         mejora.costo = Math.floor(mejora.costo * 1.25);
         if (mejora.cant >= mejora.piso){
           mejora.lvl++;
@@ -99,8 +98,8 @@ function renderUpgrades() {
     }
 
     let textoPoder = u.esSeg
-      ? `Punto por mejora: ${(u.ppS/ESCALA).toFixed(1)} PPS`
-      : `Punto por mejora: ${u.clicks} Click`;
+      ? `Poder: +${(u.ppS/ESCALA).toFixed(1)} PPS`
+      : `Poder: +${(u.clicks/ESCALA).toFixed(1)} clicks`;
 
     container.insertAdjacentHTML('beforeend',`
       <div class="${clase}" data-key="${key}">
@@ -124,7 +123,7 @@ document.getElementById("mejoras").addEventListener("click", (e) => {
 
 function render(){
     puntos.textContent =  `${(juego.puntosTot/ESCALA).toFixed(1)} puntos ${(juego.puntosPorSeg/ESCALA).toFixed(1)} puntos por segundo`;
-    ppC.textContent = `${juego.puntosPorClick/ESCALA.toFixed(1)} puntos p click`;
+    ppC.textContent = `${(juego.puntosPorClick/ESCALA).toFixed(1)} puntos p click`;
 }
 
 function resetGame() {
@@ -151,6 +150,7 @@ window.onload = () => {
     const parsed = JSON.parse(save);
     juego = Object.assign(structuredClone(juegoInicial), parsed);
   }
+
   render();
   renderUpgrades();
 };
